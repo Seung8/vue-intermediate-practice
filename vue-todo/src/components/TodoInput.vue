@@ -1,8 +1,11 @@
 <template>
-    <div>
+    <div class="inputBox shadow">
         <!-- v-model 디렉티브는 input 태그에 입력받은 텍스트 값을 동적으로 바로바로 Vue 인스턴스에 맵핑하는 역할을 수행 -->
-        <input type="text" v-model="newTodoItem">
-        <button v-on:click="addTodo">add</button>
+        <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+        <!-- <button v-on:click="addTodo">add</button> -->
+        <span class="addContainer" v-on:click="addTodo">
+            <i class="fas fa-plus addBtn"></i>
+        </span>
     </div>
 </template>
 
@@ -24,6 +27,10 @@ export default {
             // setItem('<키>', '<벨류>') 형태로 호출할 수 있음
             localStorage.setItem(this.newTodoItem, this.newTodoItem);
 
+            // 검색 후 입력 데이터 초기화
+            this.clearInput();
+        },
+        clearInput: function() {
             // 입력 데이터 초기화
             this.newTodoItem = '';
         }
@@ -31,6 +38,29 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+input:focus {
+  outline: none;
+}
+.inputBox {
+  background: white;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+}
+.inputBox input {
+  border-style: none;
+  font-size: 0.9rem;
+}
+.addContainer {
+  float: right;
+  background: linear-gradient(to right, #6478FB, #8763FB);
+  display: block;
+  width: 3rem;
+  border-radius: 0 5px 5px 0;
+}
+.addBtn {
+  color: white;
+  vertical-align: middle;
+}
 </style>
