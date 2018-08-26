@@ -76,9 +76,11 @@ li {
     color: #62acde;
     margin-right: 5px;
     padding-right: 10px;
+    cursor: pointer;
 }
 .checkBtnCompleted {
     color: #b3adad;
+    cursor: pointer;
 }
 .textCompleted {
     text-decoration: line-through;
