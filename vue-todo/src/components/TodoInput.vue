@@ -20,12 +20,14 @@ export default {
         addTodo: function() {
             // 모든 컴포넌트는 App.vue에 등록되어있고 App.vue 컴포넌트는 main.js에 등록이 되어있기 때문에
             // 결과적으로 Vue 인스턴스 하나에 등록되므로 this가 최상위 인스턴스를 지칭함
-            console.log(this.newTodoItem);
             
             // 로컬스토리지에 저장하는 로직 수행
             // setItem은 Web API 참조문서 MDN 참조
             // setItem('<키>', '<벨류>') 형태로 호출할 수 있음
-            localStorage.setItem(this.newTodoItem, this.newTodoItem);
+            // localStorage.setItem(this.newTodoItem, this.newTodoItem);
+            if (this.newTodoItem.length > 0) {
+                localStorage.setItem(this.newTodoItem, this.newTodoItem);
+            }
 
             // 검색 후 입력 데이터 초기화
             this.clearInput();

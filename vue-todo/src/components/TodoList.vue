@@ -2,8 +2,9 @@
     <div>
         <ul>
             <!-- todoItems를 순회하며 todoItem을 렌더-->
-            <li v-for="todoItem in todoItems" v-bind:key="todoItem">
+            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow">
                 {{ todoItem }}
+                <span class="removeBtn" v-on:click="removeTodo(todoItem, index)"><i class="fas fa-trash-alt"></i></span>
             </li>
         </ul>
     </div>
@@ -15,6 +16,13 @@ export default {
         return {
             todoItems: []
         }
+    },
+    methods: {
+        removeTodo: function(todoItem, index) {
+            localStorage.removeItem(todoItem);
+            // splice는 자바스크립트 배열 API로 특정 <index>에서 <개수>를 지울 수 있음
+            this.todoItems.splice(index, 1);
+        },
     },
     // Vue 라이프 사이클 중 생성되자마자 호출되는 훅
     created: function() {
@@ -32,5 +40,36 @@ export default {
 </script>
 
 <style>
-
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 0;
+    text-align: left;
+}
+li {
+    display: flex;
+    min-height: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0.5rem 0;
+    padding: 0 0.9rem;
+    background: #ffffff;
+    border-radius: 5px;
+}
+.removeBtn {
+    margin-left: auto;
+    color: #adadad;
+}
+.checkBtn {
+    line-height: 45px;
+    color: #62acde;
+    margin-right: 5px;
+}
+.checkBtnCompleted {
+    color: #b3adad;
+}
+.textCompleted {
+    text-decoration: line-through;
+    color: #b3adad;
+}
 </style>
