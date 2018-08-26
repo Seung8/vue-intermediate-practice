@@ -25,12 +25,12 @@ export default {
             // setItem은 Web API 참조문서 MDN 참조
             // setItem('<키>', '<벨류>') 형태로 호출할 수 있음
             // localStorage.setItem(this.newTodoItem, this.newTodoItem);
-            if (this.newTodoItem.length > 0) {
-                localStorage.setItem(this.newTodoItem, this.newTodoItem);
+            // 값이 있을 때만 입력
+            if (this.newTodoItem !== '') {
+                var obj = {completed: false, item: this.newTodoItem};
+                localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+                this.clearInput();
             }
-
-            // 검색 후 입력 데이터 초기화
-            this.clearInput();
         },
         clearInput: function() {
             // 입력 데이터 초기화
@@ -52,14 +52,19 @@ input:focus {
 }
 .inputBox input {
   border-style: none;
+  width: 90%;
   font-size: 0.9rem;
+  padding: 0 2%;
+  box-sizing: border-box;
 }
 .addContainer {
   float: right;
+  width: 10%;
   background: linear-gradient(to right, #6478FB, #8763FB);
   display: block;
   width: 3rem;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0;;
+  box-sizing: border-box;
 }
 .addBtn {
   color: white;

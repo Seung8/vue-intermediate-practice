@@ -2,8 +2,10 @@
     <div>
         <ul>
             <!-- todoItems를 순회하며 todoItem을 렌더-->
-            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow">
-                {{ todoItem }}
+            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+                <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
+                <!-- todoItem의 completed 속성에 따라 동적으로 class를 지정 -->
+                <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
                 <span class="removeBtn" v-on:click="removeTodo(todoItem, index)"><i class="fas fa-trash-alt"></i></span>
             </li>
         </ul>
@@ -23,6 +25,13 @@ export default {
             // splice는 자바스크립트 배열 API로 특정 <index>에서 <개수>를 지울 수 있음
             this.todoItems.splice(index, 1);
         },
+        toggleComplete: function(todoItem, index) { 
+            todoItem.completed = !todoItem.completed;
+            // localStorage API는 update가 없기 때문에 
+            // 삭제하고 다시 저장해야 한다
+            localStorage.removeItem(todoItem.item);
+            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+        },
     },
     // Vue 라이프 사이클 중 생성되자마자 호출되는 훅
     created: function() {
@@ -31,7 +40,9 @@ export default {
             // localStorage를 순회하며 loglevel:webpack-dev-server가 아닌 아이템들을 todoItems 배열에 푸시
             for (var i = 0; i < localStorage.length ; i ++) {
                 if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-                    this.todoItems.push(localStorage.key(i));
+                    // this.todoItems.push(localStorage.key(i));
+                    // 넣을 땐 JSON.stringify(), 꺼낼 땐 JSON.parse()
+                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
                 }
             }
         }
@@ -64,6 +75,7 @@ li {
     line-height: 45px;
     color: #62acde;
     margin-right: 5px;
+    padding-right: 10px;
 }
 .checkBtnCompleted {
     color: #b3adad;
