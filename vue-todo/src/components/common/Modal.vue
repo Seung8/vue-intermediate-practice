@@ -4,6 +4,7 @@
             <div class="modal-wrapper">
                 <div class="modal-container">
                     <div class="modal-header">
+                        <!-- slot은 특정 컴포넌트의 UI를 재사용할 수 있게 해주는 기능 -->
                         <slot name="header">
                         default header
                         </slot>
@@ -11,14 +12,6 @@
                     <div class="modal-body">
                         <slot name="body">
                         default body
-                        </slot>
-                    </div>
-                    <div class="modal-footer">
-                        <slot name="footer">
-                            default footer
-                            <button class="modal-default-button" @click="$emit('close')">
-                                OK
-                            </button>
                         </slot>
                     </div>
                 </div>

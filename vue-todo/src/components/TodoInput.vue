@@ -7,13 +7,18 @@
             <i class="fas fa-plus addBtn"></i>
         </span>
         <Modal v-if="showModal" @close="showModal = false">
-            <h3 slot="header">custom header</h3>
+            <h3 slot="header">
+                경고!
+                <i class="fas fa-times closeModalBtn" @click="showModal = false"></i>
+            </h3>
+            <h4 slot="body">할 일을 한 글자 이상 입력해주세요.</h4>
+            <h5 slot="footer">copy right</h5>
         </Modal>
     </div>
 </template>
 
 <script>
-import Model from './common/Model.vue'
+import Modal from './common/Modal.vue'
 
 export default {
     data: function() {
@@ -36,6 +41,8 @@ export default {
                 var obj = {completed: false, item: this.newTodoItem};
                 localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
                 this.clearInput();
+            } else {
+                this.showModal = !this.showModal;
             }
         },
         clearInput: function() {
@@ -78,5 +85,9 @@ input:focus {
 .addBtn {
   color: white;
   vertical-align: middle;
+}
+
+.closeModalBtn {
+    color: #42b983;
 }
 </style>
