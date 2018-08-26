@@ -6,14 +6,20 @@
         <span class="addContainer" v-on:click="addTodo">
             <i class="fas fa-plus addBtn"></i>
         </span>
+        <Modal v-if="showModal" @close="showModal = false">
+            <h3 slot="header">custom header</h3>
+        </Modal>
     </div>
 </template>
 
 <script>
+import Model from './common/Model.vue'
+
 export default {
     data: function() {
         return {
             newTodoItem: "",
+            showModal: false,
         }
     },
     methods: {
@@ -36,6 +42,9 @@ export default {
             // 입력 데이터 초기화
             this.newTodoItem = '';
         }
+    },
+    components: {
+        Modal: Modal
     }
 }
 </script>
