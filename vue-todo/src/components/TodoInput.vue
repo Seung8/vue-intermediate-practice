@@ -38,8 +38,8 @@ export default {
             // localStorage.setItem(this.newTodoItem, this.newTodoItem);
             // 값이 있을 때만 입력
             if (this.newTodoItem !== '') {
-                var obj = {completed: false, item: this.newTodoItem};
-                localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+                // 상위 컴포넌트로 이벤트 전달 this.$emit('이벤트 이름', '인자1', '인자2' ...)
+                this.$emit('addTodoItem', this.newTodoItem)
                 this.clearInput();
             } else {
                 this.showModal = !this.showModal;
