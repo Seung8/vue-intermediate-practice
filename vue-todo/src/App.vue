@@ -6,7 +6,7 @@
     <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
     <!-- v-bind:<내려보낼 프롭스 속성 이름>="현재 위치의 컴포넌트 데이터 속성" -->
     <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
-    <TodoFooter></TodoFooter>
+    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
   </div>
 </template>
 
@@ -42,6 +42,10 @@ export default {
       // localStorage API는 update가 없기 때문에 삭제하고 다시 저장해야 한다
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
+    clearAllItems: function() {
+      localStorage.clear();
+      this.todoItems = [];
     },
   },
   // Vue 라이프 사이클 중 생성되자마자 호출되는 훅
