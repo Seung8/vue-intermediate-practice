@@ -3,7 +3,8 @@
         <ul>
             <!-- propsdata 순회하며 todoItem을 렌더-->
             <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
-                <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
+                <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" 
+                v-on:click="toggleComplete(todoItem, index)"></i>
                 <!-- todoItem의 completed 속성에 따라 동적으로 class를 지정 -->
                 <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
                 <span class="removeBtn" v-on:click="removeTodo(todoItem, index)"><i class="fas fa-trash-alt"></i></span>
@@ -19,14 +20,10 @@ export default {
     methods: {
         removeTodo: function(todoItem, index) {
             // 상위 컴포넌트로 삭제 이벤트 전달
-            this.$emit('removeItem', todoItem, index)
+            this.$emit('removeItem', todoItem, index);
         },
         toggleComplete: function(todoItem, index) { 
-            todoItem.completed = !todoItem.completed;
-            // localStorage API는 update가 없기 때문에 
-            // 삭제하고 다시 저장해야 한다
-            localStorage.removeItem(todoItem.item);
-            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+            this.$emit('toggleItem', todoItem, index);
         },
     }
 }

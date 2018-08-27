@@ -5,7 +5,7 @@
     <!-- v-on:<하위 컴포넌트에서 발생시킨 이벤트 이름>="현재 위치의 컴포넌트의 메서드 이름" -->
     <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
     <!-- v-bind:<내려보낼 프롭스 속성 이름>="현재 위치의 컴포넌트 데이터 속성" -->
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem"></TodoList>
+    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -33,6 +33,15 @@ export default {
       localStorage.removeItem(todoItem.item);
       // splice는 자바스크립트 배열 API로 특정 <index>에서 <개수>를 지울 수 있음
       this.todoItems.splice(index, 1);
+    },
+    toggleOneItem: function(todoItem, index) {
+      // 최상위 컴포넌트에서는 컨테이너의 성격을 가지고 있기 때문에 최상위 컴포넌트 내에 data로 접근하는 것이 좋음
+      // todoItem.completed = !todoItem.completed;
+      this.todoItems[index].completed = !this.todoItems[index].completed;
+
+      // localStorage API는 update가 없기 때문에 삭제하고 다시 저장해야 한다
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
   },
   // Vue 라이프 사이클 중 생성되자마자 호출되는 훅
