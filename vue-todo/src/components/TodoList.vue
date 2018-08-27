@@ -13,13 +13,13 @@
 </template>
 
 <script>
+// TodoList 컴포넌트에서는 표현 위주로 동작하고 실제 이벤트 처리는 최상위 App 컴포넌트에서 처리하도록 리팩토링
 export default {
     props: ['propsdata'],
     methods: {
         removeTodo: function(todoItem, index) {
-            localStorage.removeItem(todoItem);
-            // splice는 자바스크립트 배열 API로 특정 <index>에서 <개수>를 지울 수 있음
-            this.todoItems.splice(index, 1);
+            // 상위 컴포넌트로 삭제 이벤트 전달
+            this.$emit('removeItem', todoItem, index)
         },
         toggleComplete: function(todoItem, index) { 
             todoItem.completed = !todoItem.completed;
