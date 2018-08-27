@@ -3,7 +3,8 @@
   <div class="app">
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
-    <TodoList></TodoList>
+    <!-- v-bind:<내려보낼 프롭스 속성 이름>="현재 위치의 컴포넌트 데이터 속성" -->
+    <TodoList v-bind:propsdata="todoItems"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -15,6 +16,25 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 
 export default {
+  data: function() {
+    return {
+      todoItems: [],
+    }
+  },
+  // Vue 라이프 사이클 중 생성되자마자 호출되는 훅
+  created: function() {
+      // localStorage에 item이 있을 경우(길이가 0보다 큰 경우)
+      if (localStorage.length > 0) {
+          // localStorage를 순회하며 loglevel:webpack-dev-server가 아닌 아이템들을 todoItems 배열에 푸시
+          for (var i = 0; i < localStorage.length ; i ++) {
+              if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+                  // this.todoItems.push(localStorage.key(i));
+                  // 넣을 땐 JSON.stringify(), 꺼낼 땐 JSON.parse()
+                  this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+              }
+          }
+      }
+  },
   components: {
     'TodoHeader': TodoHeader,
     'TodoInput': TodoInput,

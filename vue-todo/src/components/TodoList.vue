@@ -1,8 +1,8 @@
 <template>
     <div>
         <ul>
-            <!-- todoItems를 순회하며 todoItem을 렌더-->
-            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+            <!-- propsdata 순회하며 todoItem을 렌더-->
+            <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
                 <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
                 <!-- todoItem의 completed 속성에 따라 동적으로 class를 지정 -->
                 <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
@@ -14,11 +14,7 @@
 
 <script>
 export default {
-    data: function() {
-        return {
-            todoItems: []
-        }
-    },
+    props: ['propsdata'],
     methods: {
         removeTodo: function(todoItem, index) {
             localStorage.removeItem(todoItem);
@@ -32,20 +28,6 @@ export default {
             localStorage.removeItem(todoItem.item);
             localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
         },
-    },
-    // Vue 라이프 사이클 중 생성되자마자 호출되는 훅
-    created: function() {
-        // localStorage에 item이 있을 경우(길이가 0보다 큰 경우)
-        if (localStorage.length > 0) {
-            // localStorage를 순회하며 loglevel:webpack-dev-server가 아닌 아이템들을 todoItems 배열에 푸시
-            for (var i = 0; i < localStorage.length ; i ++) {
-                if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-                    // this.todoItems.push(localStorage.key(i));
-                    // 넣을 땐 JSON.stringify(), 꺼낼 땐 JSON.parse()
-                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-                }
-            }
-        }
     }
 }
 </script>
