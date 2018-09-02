@@ -30,7 +30,7 @@ Vue.js 중급 강좌를 위한 리포지토리입니다.
     - Vuex의 컨셉은 단방향(State -> View -> Action)
     - 설치(ES6): npm install vuex --save 
     - 기술요소
-        - state: 여러 컴포넌트에 등록되는 데이터 ```data```
+        - state: 여러 컴포넌트에 등록되는 데이터(상태) ```data```
         - getters: 연산된 state 값을 접근하는 속성 ```computed```
         - mutations: state 값을 변경하는 이벤트 로직(메서드) ```methods```
         - actions: 비동기 처리 로직을 선언하는 메서드 ```aysnc methods```
