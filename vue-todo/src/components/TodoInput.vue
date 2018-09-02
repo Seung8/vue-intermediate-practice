@@ -21,14 +21,14 @@
 import Modal from './common/Modal.vue'
 
 export default {
-    data: function() {
+    data() {
         return {
             newTodoItem: "",
             showModal: false,
         }
     },
     methods: {
-        addTodo: function() {
+        addTodo() {
             // 모든 컴포넌트는 App.vue에 등록되어있고 App.vue 컴포넌트는 main.js에 등록이 되어있기 때문에
             // 결과적으로 Vue 인스턴스 하나에 등록되므로 this가 최상위 인스턴스를 지칭함
             
@@ -45,7 +45,7 @@ export default {
                 this.showModal = !this.showModal;
             }
         },
-        clearInput: function() {
+        clearInput() {
             // 입력 데이터 초기화
             this.newTodoItem = '';
         }

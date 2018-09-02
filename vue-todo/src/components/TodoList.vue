@@ -18,11 +18,11 @@
 export default {
     props: ['propsdata'],
     methods: {
-        removeTodo: function(todoItem, index) {
+        removeTodo(todoItem, index) {
             // 상위 컴포넌트로 삭제 이벤트 전달
             this.$emit('removeItem', todoItem, index);
         },
-        toggleComplete: function(todoItem, index) { 
+        toggleComplete(todoItem, index) { 
             this.$emit('toggleItem', todoItem, index);
         },
     }
