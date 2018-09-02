@@ -17,25 +17,25 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 
 export default {
-  data: function() {
+  data() {
     return {
       todoItems: [],
     }
   },
   methods: {
-    addOneItem: function(todoItem) {
+    addOneItem(todoItem) {
       // const의 특성상 오버라이딩이 안되기 때문에 비교적 안전한 프로그래밍을 위해 let 대신 const로 할당
       const obj = {completed: false, item: todoItem};
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
-    removeOneItem: function(todoItem, index) {
+    removeOneItem(todoItem, index) {
       // localStorage의 todoItem.item 삭제
       localStorage.removeItem(todoItem.item);
       // splice는 자바스크립트 배열 API로 특정 <index>에서 <개수>를 지울 수 있음
       this.todoItems.splice(index, 1);
     },
-    toggleOneItem: function(todoItem, index) {
+    toggleOneItem(todoItem, index) {
       // 최상위 컴포넌트에서는 컨테이너의 성격을 가지고 있기 때문에 최상위 컴포넌트 내에 data로 접근하는 것이 좋음
       // todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
@@ -44,13 +44,13 @@ export default {
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems: function() {
+    clearAllItems() {
       localStorage.clear();
       this.todoItems = [];
     },
   },
   // Vue 라이프 사이클 중 생성되자마자 호출되는 훅
-  created: function() {
+  created() {
       // localStorage에 item이 있을 경우(길이가 0보다 큰 경우)
       if (localStorage.length > 0) {
           // localStorage를 순회하며 loglevel:webpack-dev-server가 아닌 아이템들을 todoItems 배열에 푸시
