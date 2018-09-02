@@ -24,7 +24,8 @@ export default {
   },
   methods: {
     addOneItem: function(todoItem) {
-      var obj = {completed: false, item: todoItem};
+      // const의 특성상 오버라이딩이 안되기 때문에 비교적 안전한 프로그래밍을 위해 let 대신 const로 할당
+      const obj = {completed: false, item: todoItem};
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
@@ -53,7 +54,8 @@ export default {
       // localStorage에 item이 있을 경우(길이가 0보다 큰 경우)
       if (localStorage.length > 0) {
           // localStorage를 순회하며 loglevel:webpack-dev-server가 아닌 아이템들을 todoItems 배열에 푸시
-          for (var i = 0; i < localStorage.length ; i ++) {
+          // 매 loop 마다 i의 값은 변해야하기 떄문에 let으로 선언(ES6)
+          for (let i = 0; i < localStorage.length ; i ++) {
               if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
                   // this.todoItems.push(localStorage.key(i));
                   // 넣을 땐 JSON.stringify(), 꺼낼 땐 JSON.parse()
