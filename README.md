@@ -20,6 +20,15 @@ Vue.js 중급 강좌를 위한 리포지토리입니다.
         - 속성명 축약
             - 객체의 속성명과 값이 일치할 때 속성명하나로 축약 가능
 - 복잡한 애플리케이션 구현을 위한 Vuex
+    - 상태관리 라이브러리
+    - react.js의 Flux 패턴 기반
+    - Helper 기능을 가짐
+    - 속성으로 state, getters, mutations, actions를 가짐
+    - State: 컴포넌트 간 공유하는 데이터 ```data() 프로퍼티```
+    - View: 데이터를 표시하는 화면 ```template```
+    - Action: 사용자의 입력에 따라 데이터를 변경하는 ```methods```
+    - Vuex의 컨셉은 단방향(State -> View -> Action)
+    - 설치(ES6): npm install vuex --save 
 
 ## License & Copyright
 **Copyright © 2018 Captain Pangyo**
