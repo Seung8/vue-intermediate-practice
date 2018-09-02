@@ -2,7 +2,7 @@
     <div>
         <ul>
             <!-- propsdata 순회하며 todoItem을 렌더-->
-            <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
+            <li v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.item" class="shadow">
                 <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" 
                 v-on:click="toggleComplete(todoItem, index)"></i>
                 <!-- todoItem의 completed 속성에 따라 동적으로 class를 지정 -->
