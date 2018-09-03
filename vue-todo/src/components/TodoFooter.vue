@@ -10,7 +10,10 @@
 export default {
     methods: {
         clearTodo() {
-            this.$emit('clearAll');
+            // this.$emit('clearAll');
+            
+            // mutations 적용
+            this.$store.commit('clearAll');
         }
     }
 }

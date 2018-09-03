@@ -29,5 +29,32 @@ const storage = {
 export const store = new Vuex.Store({
     state: {
         todoItems: storage.fetch(),
-    }
+    },
+    mutations: {
+        addOneItem(state, payload) {
+            // const의 특성상 오버라이딩이 안되기 때문에 비교적 안전한 프로그래밍을 위해 let 대신 const로 할당
+            const obj = {completed: false, item: payload};
+            localStorage.setItem(payload, JSON.stringify(obj));
+            state.todoItems.push(obj);
+        },
+        removeOneItem(state, payload) {
+            // localStorage의 todoItem.item 삭제
+            localStorage.removeItem(payload.todoItem);
+            // splice는 자바스크립트 배열 API로 특정 <index>에서 <개수>를 지울 수 있음
+            state.todoItems.splice(payload.index, 1);
+        },
+        toggleOneItem(state, payload) {
+            // 최상위 컴포넌트에서는 컨테이너의 성격을 가지고 있기 때문에 최상위 컴포넌트 내에 data로 접근하는 것이 좋음
+            // todoItem.completed = !todoItem.completed;
+            state.todoItems[payload.index].completed = !state.todoItems[payload.index].completed;
+
+            // localStorage API는 update가 없기 때문에 삭제하고 다시 저장해야 한다
+            localStorage.removeItem(payload.todoItem);
+            localStorage.setItem(payload.todoItem, JSON.stringify(payload.todoItem));
+        },
+        clearAll(state) {
+            localStorage.clear();
+            state.todoItems = [];
+        }
+    },
 });

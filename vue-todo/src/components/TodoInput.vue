@@ -39,7 +39,11 @@ export default {
             // 값이 있을 때만 입력
             if (this.newTodoItem !== '') {
                 // 상위 컴포넌트로 이벤트 전달 this.$emit('이벤트 이름', '인자1', '인자2' ...)
-                this.$emit('addTodoItem', this.newTodoItem)
+                // this.$emit('addTodoItem', this.newTodoItem)
+                // emit 대신 vuex mutations를 이용하기 위해 commit() 사용
+                // trim(): 앞, 뒤 공백 제거
+                const item = this.newTodoItem.trim();
+                this.$store.commit('addOneItem', item);
                 this.clearInput();
             } else {
                 this.showModal = !this.showModal;

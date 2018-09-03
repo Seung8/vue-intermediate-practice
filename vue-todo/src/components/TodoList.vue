@@ -16,14 +16,21 @@
 <script>
 // TodoList 컴포넌트에서는 표현 위주로 동작하고 실제 이벤트 처리는 최상위 App 컴포넌트에서 처리하도록 리팩토링
 export default {
-    props: ['propsdata'],
     methods: {
         removeTodo(todoItem, index) {
             // 상위 컴포넌트로 삭제 이벤트 전달
-            this.$emit('removeItem', todoItem, index);
+            // this.$emit('removeItem', todoItem, index);
+            
+            // mutations 적용
+            const item = {todoItem, index}
+            this.$store.commit('removeOneItem', {todoItem, index});
         },
         toggleComplete(todoItem, index) { 
-            this.$emit('toggleItem', todoItem, index);
+            // this.$emit('toggleItem', todoItem, index);
+
+            // mutaions 적용
+            const item = {todoItem, index}
+            this.$store.commit('toggleOneItem', {todoItem, index});
         },
     }
 }
